@@ -1,11 +1,17 @@
-complete <- function(directory, id = 1:332) {
-        files <- list.files(directory)
-        path <- paste(directory, "/", files, sep="")
-        result <- data.frame()
-        for (i in id) {
-                data <- read.csv(path[i])
-                nobs <- nrow(data[complete.cases(data),])
-                result <- rbind(result,data.frame(id=i,nobs))
-        }
-        as.data.frame(result)
+dirlocation <- 
+setwd(dirlocation)
+filenames <- list.files(path=dirlocation)
+id <- 1:length(filenames)
+
+complete <- function(directory, id){
+
+files <- data.frame(NULL)
+for(i in id){
+  file <- read.csv(filenames[i])
+  file <- file[complete.cases(file),]
+  files <- rbind(files,file)
 }
+as.data.frame(files)
+}
+
+data <- complete(dirlocation,id)
